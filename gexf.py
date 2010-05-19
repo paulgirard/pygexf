@@ -282,7 +282,7 @@ class Node :
 	
 class Edge :
 
-	def __init__(self,graph,id,source,target,weight="",start="",end="",label="") :
+	def __init__(self,graph,id,source,target,weight="",start="",end="",label="",r="",g="",b="") :
 		self.id =id
 		self._graph=graph
 		
@@ -324,6 +324,14 @@ class Edge :
 				edgeXML.set("weight",str(self.weight))
 			if not self.label == "":
 				edgeXML.set("label",str(self.label))
+				
+			if not self.r=="" and not self.g=="" and not self.b=="" :
+				#color : <viz:color r="239" g="173" b="66"/>
+				colorXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}color")
+				colorXML.set("r",self.r)
+				colorXML.set("g",self.g)
+				colorXML.set("b",self.b)
+
 			
 			attributesXML = etree.SubElement(edgeXML, "attvalues")
 			for atts in self._attributes :
@@ -339,4 +347,9 @@ class Edge :
 			print self._source+" "+self._target	
 			print e
 			exit()	
+			
+	def setColor(self,r,g,b) :
+		self.r=r
+		self.g=g
+		self.b=b
 			

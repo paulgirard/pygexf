@@ -138,6 +138,7 @@ class Graph :
 		self._edgesAttributes[id]={"title":title, "default":defaultValue, "mode":mode, "type":type } 		# modify Nodes with default
 		#for edge in self._edges.values():
 		#	edge.addAttribute(id,defaultValue)
+		return id
 			
 			
 	def addDefaultAttributesToEdge(self,edge) :

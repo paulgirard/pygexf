@@ -302,6 +302,7 @@ class Edge :
 		self.weight=weight
 		self.label=label
 		self._attributes=[]
+		self.setColor(r,g,b)
 		
 		# add existing nodesattributes default values : bad idea and unecessary
 		#self._graph.addDefaultAttributesToEdge(self)
@@ -327,7 +328,7 @@ class Edge :
 				
 			if not self.r=="" and not self.g=="" and not self.b=="" :
 				#color : <viz:color r="239" g="173" b="66"/>
-				colorXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}color")
+				colorXML = etree.SubElement(edgeXML, "{http://www.gexf.net/1.1draft/viz}color")
 				colorXML.set("r",self.r)
 				colorXML.set("g",self.g)
 				colorXML.set("b",self.b)

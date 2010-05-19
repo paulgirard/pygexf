@@ -282,7 +282,9 @@ class Node :
 	
 class Edge :
 
-	def __init__(self,graph,id,source,target,weight="",start="",end="",label="",r="",g="",b="") :
+	def __init__(self,graph,id,source,target,weight="",start="",end="",label=""): 
+# COLOR on edges isn't supported in GEXF
+#	,r="",g="",b="") :
 		self.id =id
 		self._graph=graph
 		
@@ -302,7 +304,8 @@ class Edge :
 		self.weight=weight
 		self.label=label
 		self._attributes=[]
-		self.setColor(r,g,b)
+		# COLOR on edges isn't supported in GEXF
+#		self.setColor(r,g,b)
 		
 		# add existing nodesattributes default values : bad idea and unecessary
 		#self._graph.addDefaultAttributesToEdge(self)
@@ -325,13 +328,14 @@ class Edge :
 				edgeXML.set("weight",str(self.weight))
 			if not self.label == "":
 				edgeXML.set("label",str(self.label))
-				
-			if not self.r=="" and not self.g=="" and not self.b=="" :
-				#color : <viz:color r="239" g="173" b="66"/>
-				colorXML = etree.SubElement(edgeXML, "{http://www.gexf.net/1.1draft/viz}color")
-				colorXML.set("r",self.r)
-				colorXML.set("g",self.g)
-				colorXML.set("b",self.b)
+
+# COLOR on edges isn't supported in GEXF				
+#			if not self.r=="" and not self.g=="" and not self.b=="" :
+#				#color : <viz:color r="239" g="173" b="66"/>
+#				colorXML = etree.SubElement(edgeXML, "{http://www.gexf.net/1.1draft/viz}color")
+#				colorXML.set("r",self.r)
+#				colorXML.set("g",self.g)
+#				colorXML.set("b",self.b)
 
 			
 			attributesXML = etree.SubElement(edgeXML, "attvalues")
@@ -348,9 +352,9 @@ class Edge :
 			print self._source+" "+self._target	
 			print e
 			exit()	
-			
-	def setColor(self,r,g,b) :
-		self.r=r
-		self.g=g
-		self.b=b
+# COLOR on edges isn't supported in GEXF			
+#	def setColor(self,r,g,b) :
+#		self.r=r
+#		self.g=g
+#		self.b=b
 			

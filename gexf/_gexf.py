@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #
 #     Gexf library in python
 #     see gephi.org and gexf.net
@@ -8,8 +10,6 @@
 #     main developper : Paul Girard, médialab Sciences Po
 #     licence : GPL v3
 #
-
-# -*- coding: utf-8 -*-
 
 from lxml  import etree
 from datetime import  *

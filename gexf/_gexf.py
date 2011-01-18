@@ -257,7 +257,7 @@ class Node :
 	def getXML(self) :
 		# return lxml etree element
 		try :
-			nodeXML = etree.Element("node",id=str(self.id),label=str(self.label))
+			nodeXML = etree.Element("node",id=str(self.id),label=self.label)
 			if not self.start == "":
 				nodeXML.set("start",self.start)
 			if not self.end == "":
@@ -342,7 +342,7 @@ class Edge :
 			if not self.weight == "":
 				edgeXML.set("weight",str(self.weight))
 			if not self.label == "":
-				edgeXML.set("label",str(self.label))
+				edgeXML.set("label",self.label)
 
 # COLOR on edges isn't supported in GEXF				
 			if not self.r=="" and not self.g=="" and not self.b=="" :

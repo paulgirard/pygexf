@@ -531,7 +531,6 @@ class Node :
             if self.size :
                 sizeXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}size")
                 sizeXML.set("value",self.size)
-                print etree.tostring(sizeXML,pretty_print=True,encoding='utf-8',xml_declaration=True)
 
             return nodeXML
         except Exception, e:

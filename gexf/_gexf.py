@@ -42,7 +42,7 @@ class Gexf :
         self.xmlns="http://www.gephi.org/gexf/1.2draft"
         self.xsi="http://www.w3.org/2001/XMLSchema-instance"
         self.schemaLocation="http://www.gephi.org/gexf/1.1draft http://gephi.org/gexf/1.2draft.xsd"
-        self.viz="http://www.gexf.net/1.2draft/viz"
+        self.viz="http://www.gexf.net/1.1draft/viz"
         self.version="1.2"
 
     def addGraph(self,type,mode,label,timeformat=""):
@@ -149,8 +149,8 @@ class Graph :
         self._edges={}
         self.edges=self._edges
 
-    def addNode(self,id,label,start="",end="",startopen=False,endopen=False,pid="",r="",g="",b="",spells=[]) :
-        self._nodes[str(id)]=Node(self,id,label,start,end,pid,r,g,b,spells,startopen,endopen)
+    def addNode(self,id,label,start="",end="",startopen=False,endopen=False,pid="",r="",g="",b="",x=None,y=None,z=None,size=None,spells=[]) :
+        self._nodes[str(id)]=Node(self,id,label,start,end,pid,r,g,b,x,y,z,size,spells,startopen,endopen)
         return self._nodes[str(id)]
 
     def nodeExists(self,id) :
@@ -465,7 +465,7 @@ class Spells(list):
 
 class Node :
 
-    def __init__(self,graph,id,label,start="",end="",pid="",r="",g="",b="",spells=[],startopen=False,endopen=False) :
+    def __init__(self,graph,id,label,start="",end="",pid="",r="",g="",b="",x=None,y=None,z=None,size=None,spells=[],startopen=False,endopen=False) :
         self.id =id
         self.label=label
         self.start=start
@@ -475,6 +475,8 @@ class Node :
         self.pid=pid
         self._graph=graph
         self.setColor(r,g,b)
+        self.setPosition(x,y,z)
+        self.size=size
 
         #spells expecting format = [{start:"",end:""},...]
         self.spells= spells
@@ -519,6 +521,17 @@ class Node :
                 colorXML.set("r",self.r)
                 colorXML.set("g",self.g)
                 colorXML.set("b",self.b)
+
+            if self.x and self.y and self.z :
+                positionXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}position")
+                positionXML.set("x",self.x)
+                positionXML.set("y",self.y)
+                positionXML.set("z",self.z)
+
+            if self.size :
+                sizeXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}size")
+                sizeXML.set("value",self.size)
+                print etree.tostring(sizeXML,pretty_print=True,encoding='utf-8',xml_declaration=True)
 
             return nodeXML
         except Exception, e:
@@ -599,6 +612,11 @@ class Node :
         self.r=r
         self.g=g
         self.b=b
+
+    def setPosition(self,x,y,z) :
+        self.x=x
+        self.y=y
+        self.z=z
 
     def __str__(self):
         return self.label

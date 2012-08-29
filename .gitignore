@@ -2,3 +2,5 @@ html
 *.pyc
 dist
 build
+pygexf.egg-info/
+

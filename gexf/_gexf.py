@@ -309,7 +309,7 @@ class Attributes(dict):
         if attClass in self.attClass_choices :
             if id in self[attClass].keys() :
                 att={"id":id}
-                att["value"]=value if value else self[attClass][id].defaultValue
+                att["value"]=value if value is not None else self[attClass][id].defaultValue
                 if self[attClass][id]["mode"]=="dynamic" and start or end :
                 # start & end will be discarded if the mode is set to static
                     if start :

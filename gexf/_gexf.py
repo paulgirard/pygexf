@@ -63,9 +63,10 @@ class Gexf :
             
         return gexfXML
          
-    def write(self,file):
+    def write(self,file, print_stat=True):
         file.write(etree.tostring(self.getXML(),pretty_print=True,encoding='utf-8',xml_declaration=True))
-        self.print_stat()
+        if print_stat == True:
+            self.print_stat()
      
     def print_stat(self) :
         for graph in self.graphs :

@@ -149,8 +149,8 @@ class Graph :
         self._edges={}
         self.edges=self._edges
         
-    def addNode(self,id,label,start="",end="",startopen=False,endopen=False,pid="",r="",g="",b="",spells=[]) :
-        self._nodes[str(id)]=Node(self,id,label,start,end,pid,r,g,b,spells,startopen,endopen)
+    def addNode(self,id,label,start="",end="",startopen=False,endopen=False,pid="",r="",g="",b="",size="",shape="", spells=[]) :
+        self._nodes[str(id)]=Node(self,id,label,start,end,pid,r,g,b, size, shape, spells,startopen,endopen)
         return self._nodes[str(id)]
     
     def nodeExists(self,id) :
@@ -465,7 +465,7 @@ class Spells(list):
            
 class Node :
 
-    def __init__(self,graph,id,label,start="",end="",pid="",r="",g="",b="",spells=[],startopen=False,endopen=False) :
+    def __init__(self,graph,id,label,start="",end="",pid="",r="",g="",b="",size="",shape="disc",spells=[],startopen=False,endopen=False) :
         self.id =id 
         self.label=label
         self.start=start
@@ -474,6 +474,8 @@ class Node :
         self.endopen=endopen
         self.pid=pid
         self._graph=graph
+        self.size=size
+        self.shape=shape
         self.setColor(r,g,b)
         
         #spells expecting format = [{start:"",end:""},...]
@@ -490,7 +492,8 @@ class Node :
         #self._graph.addDefaultAttributesToNode(self)
         
     def addAttribute(self,id,value,start="",end="",startopen=False,endopen=False) :
-        self._attributes.append(makeAttributeInstance(self,"node",id,value,start,end,startopen,endopen))
+        pass
+        #self._attributes.append(makeAttributeInstance(self,"node",id,value,start,end,startopen,endopen))
             
     def getXML(self) :
         # return lxml etree element
@@ -508,11 +511,12 @@ class Node :
                 nodeXML.append(Attributes.getAttributesXML(self._attributes))
             
             # spells
-            if self.spells :
-                print "found spells in node "+self.id
-                nodeXML.append(self.spells.getXML())
-                
-            
+            if len(self.spells):
+                #print "found spells in node "+self.id
+                #nodeXML.append(self.spells.getXML())
+                pass
+        
+            # color
             if not self.r=="" and not self.g=="" and not self.b=="" :
                 #color : <viz:color r="239" g="173" b="66"/>
                 colorXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}color")
@@ -520,6 +524,18 @@ class Node :
                 colorXML.set("g",self.g)
                 colorXML.set("b",self.b)
             
+            # size
+            if not self.size == "":
+                sizeXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}size")
+                sizeXML.set("value", self.size)
+
+            # shape
+            if not self.shape == "":
+                if not self.shape in ["disc", "square", "triangle", "diamond"]:
+                    raise Exception("Shape not supported")
+                shapeXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}shape")
+                shapeXML.set("value", self.shape)
+
             return nodeXML
         except Exception, e:
             print self.label
@@ -643,7 +659,8 @@ class Edge :
         
         
     def addAttribute(self,id,value,start="",end="",startopen=False,endopen=False) :
-        self._attributes.append(makeAttributeInstance(self,"node",id,value,start,end,startopen,endopen))
+        pass        
+        #self._attributes.append(makeAttributeInstance(self,"node",id,value,start,end,startopen,endopen))
         
     
     def getXML(self) :

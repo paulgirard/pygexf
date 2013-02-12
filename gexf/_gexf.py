@@ -491,7 +491,7 @@ class Node :
         #self._graph.addDefaultAttributesToNode(self)
         
     def addAttribute(self,id,value,start="",end="",startopen=False,endopen=False) :
-        self._attributes.append(makeAttributeInstance(self,"node",id,value,start,end,startopen,endopen))
+        self._attributes.append(self._graph.attributes.makeAttributeInstance("node",id,value,start,end,startopen,endopen))
             
     def getXML(self) :
         # return lxml etree element
@@ -644,7 +644,7 @@ class Edge :
         
         
     def addAttribute(self,id,value,start="",end="",startopen=False,endopen=False) :
-        self._attributes.append(makeAttributeInstance(self,"node",id,value,start,end,startopen,endopen))
+        self._attributes.append(self._graph.attributes.makeAttributeInstance("edge",id,value,start,end,startopen,endopen))
         
     
     def getXML(self) :

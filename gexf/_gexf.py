@@ -310,7 +310,7 @@ class Attributes(dict):
         if attClass in self.attClass_choices :
             if id in self[attClass].keys() :
                 att={"id":id}
-                att["value"]=value if value else self[attClass][id].defaultValue
+                att["value"]=value if value else self[attClass][id]["defaultValue"]
                 if self[attClass][id]["mode"]=="dynamic" and start or end :
                 # start & end will be discarded if the mode is set to static
                     if start :
@@ -637,7 +637,7 @@ class Edge :
         self.setColor(r,g,b)
         
         #spells expecting format = [{start:"",end:""},...]
-        self.spells= Spells()
+        self.spells= Spells(spells)
         
         # add existing nodesattributes default values : bad idea and unecessary
         #self._graph.addDefaultAttributesToEdge(self)
@@ -666,7 +666,9 @@ class Edge :
             
             # spells
             if self.spells :
-                spellsXML.append(self.spells.getXML())
+                #spellsXML = etree.SubElement(edgeXML, "spells")
+                #spellsXML.append(self.spells.getXML())
+                edgeXML.append(self.spells.getXML())
 
             # COLOR on edges is supported in GEXF since 1.2                
             if not self.r=="" and not self.g=="" and not self.b=="" :

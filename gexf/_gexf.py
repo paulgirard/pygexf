@@ -687,7 +687,7 @@ class Edge :
     def getAttributes(self):
         attsFull=[]
         for att in self._attributes :
-            attFull=self._graph.attributes["node"][att["id"]].copy()
+            attFull=self._graph.attributes["edge"][att["id"]].copy()
             attFull.update(att)
             attsFull.append(attFull)
         return attsFull

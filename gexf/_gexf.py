@@ -210,13 +210,13 @@ class Graph:
             graphXML.append(attributesElement)
 
         nodesXML = etree.SubElement(graphXML, "nodes")
-        node_ids = self._nodes.keys()
+        node_ids = list(self._nodes.keys())
         node_ids.sort()
         for id in node_ids:
             nodesXML.append(self._nodes[id].getXML())
 
         edgesXML = etree.SubElement(graphXML, "edges")
-        edge_ids = self._edges.keys()
+        edge_ids = list(self._edges.keys())
         edge_ids.sort()
         for id in edge_ids:
             edgesXML.append(self._edges[id].getXML())
@@ -335,7 +335,7 @@ class Attributes(dict):
             for attClass, atts in self.items():
                 # group by mode
                 key_mode = lambda att: att["mode"]
-                atts_sorted_by_mode = sorted(atts.values(), key=key_mode, reverse=True)
+                atts_sorted_by_mode = sorted(list(atts.values()), key=key_mode, reverse=True)
                 for mode, atts in itertools.groupby(atts_sorted_by_mode, key_mode):
                     # generate on attributes by mode
                     attributesXML = etree.Element("attributes")

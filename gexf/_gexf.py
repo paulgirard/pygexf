@@ -26,7 +26,7 @@ import traceback
  # add anti-paralell edges test
 
 def msg_unexpected_tag(expected, got):
-    print "Error : incorrect xml. Expected tag {expected}, not {got}.".format(expected=expected, got=got)
+    print("Error : incorrect xml. Expected tag {expected}, not {got}.".format(expected=expected, got=got))
 
 
 def ns_clean(token):
@@ -262,9 +262,9 @@ class Graph:
                 Edge.importXML(edges_xml, graph_obj)
 
     def print_stat(self):
-        print self.label + " " + self.type + " " + self.mode + " " + self.start + " " + self.end
-        print "number of nodes : " + str(len(self._nodes))
-        print "number of edges : " + str(len(self._edges))
+        print(self.label + " " + self.type + " " + self.mode + " " + self.start + " " + self.end)
+        print("number of nodes : " + str(len(self._nodes)))
+        print("number of edges : " + str(len(self._edges)))
 
 
 class Attributes(dict):
@@ -508,7 +508,7 @@ class Node:
 
             # spells
             if self.spells:
-                print "found spells in node " + self.id
+                print("found spells in node " + self.id)
                 nodeXML.append(self.spells.getXML())
 
             
@@ -520,10 +520,10 @@ class Node:
                 colorXML.set("b", self.b)
 
             return nodeXML
-        except Exception, e:
-            print self.label
-            print self._attributes
-            print e
+        except Exception as e:
+            print(self.label)
+            print(self._attributes)
+            print(e)
             traceback.print_exc()
             exit()
 
@@ -670,9 +670,9 @@ class Edge:
                 colorXML.set("b", self.b)
 
             return edgeXML
-        except Exception, e:
-            print self._source + " " + self._target
-            print e
+        except Exception as e:
+            print(self._source + " " + self._target)
+            print(e)
             exit()
 
     def getAttributes(self):
@@ -780,7 +780,7 @@ class GexfImport:
         return token[i + 1:]
 
     def msg_unexpected_tag(self, expected, got):
-        print "Error : incorrect xml. Expected tag {expected}, not {got}.".format(expected=expected, got=got)
+        print("Error : incorrect xml. Expected tag {expected}, not {got}.".format(expected=expected, got=got))
 
     def extract_gexf_obj(self, meta_xml):
         for child in meta_xml:

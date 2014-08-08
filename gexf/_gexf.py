@@ -11,8 +11,8 @@
 #     licence : GPL v3
 #
 
-from lxml  import etree
-from datetime import  date
+from lxml import etree
+from datetime import date
 import itertools
 import traceback
 
@@ -66,7 +66,7 @@ class Gexf:
 
     def write(self, file, print_stat=True):
         file.write(etree.tostring(self.getXML(), pretty_print=True, encoding='utf-8', xml_declaration=True))
-        if print_stat == True:
+        if print_stat is True:
             self.print_stat()
 
     def print_stat(self):
@@ -82,7 +82,7 @@ class Gexf:
         # start create Gexf Object
         gexf_xml = tree.getroot()
         tag = ns_clean(gexf_xml.tag).lower()
-        if tag <> "gexf":
+        if tag != "gexf":
             msg_unexpected_tag("gexf", tag)
             return
         gexf_obj = None
@@ -101,7 +101,7 @@ class Gexf:
             # export graph xml through Graph Class
             if tag == "graph":
                 graph_xml = child
-                if gexf_obj == None:
+                if gexf_obj is None:
                     msg_unexpected_tag("meta", tag)
                     return
                 Graph.importXML(graph_xml, gexf_obj)
@@ -268,16 +268,16 @@ class Graph:
 
 
 class Attributes(dict):
-    """ 
+    """
         attributes=
         {
          "node" :
             { "id1" : {"id":"id1","title":"age","type":"integer","defaultValue":50,"mode":"static"}, },
          "edge" :
             { "id2" : {"id":"id2","title":"relationship","type":"string","defaultValue":"friend",mode:"dynamic"}, },
-        }            
-            
-            
+        }
+
+
     """
 
     def __init__(self):
@@ -441,7 +441,7 @@ class Attributes(dict):
 
 
 class Spells(list):
-    ''' 
+    '''
     spells are time periods
     spells is a list of dictionaries
     a spell is a dict : {"start":"YYYY-MM-DD","end":"YYYY-MM-DD"}
@@ -462,7 +462,7 @@ class Spells(list):
     def importXML(spellsxmltree):
         return Spells([spell.attrib for spell in spellsxmltree])
 
-           
+
 class Node:
 
     def __init__(self, graph, id, label, start="", end="", pid="", r="", g="", b="", spells=[], startopen=False, endopen=False):
@@ -511,7 +511,7 @@ class Node:
                 print("found spells in node " + self.id)
                 nodeXML.append(self.spells.getXML())
 
-            
+
             if not self.r == "" and not self.g == "" and not self.b == "":
                 #color : <viz:color r="239" g="173" b="66"/>
                 colorXML = etree.SubElement(nodeXML, "{http://www.gexf.net/1.1draft/viz}color")
@@ -605,7 +605,6 @@ class Edge:
         self.id = id
         self._graph = graph
 
-        
         if self._graph.nodeExists(source):
             self._source = source
             self.source = self._source
@@ -759,7 +758,7 @@ class GexfImport:
         tree = etree.parse(file_like, parser)
         gexf_xml = tree.getroot()
         tag = self.ns_clean(gexf_xml.tag).lower()
-        if tag <> "gexf":
+        if tag != "gexf":
             self.msg_unexpected_tag("gexf", tag)
             return
         self.gexf_obj = None
@@ -857,7 +856,6 @@ class GexfImport:
             tag = self.ns_clean(child.tag).lower()
             if tag == "default":
                 default = child.text
-
 
         if attr_class == "node":
             self.graph_obj.addNodeAttribute(title, default, type, mode, force_id=id)

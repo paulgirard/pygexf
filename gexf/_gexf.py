@@ -332,7 +332,7 @@ class Attributes(dict):
         allAttributesXML = []
         if len(self) > 0:
             # iter on node and then edge atts
-            for attClass, atts in self.iteritems():
+            for attClass, atts in self.items():
                 # group by mode
                 key_mode = lambda att: att["mode"]
                 atts_sorted_by_mode = sorted(atts.values(), key=key_mode, reverse=True)

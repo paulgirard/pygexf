@@ -9,7 +9,7 @@ setup(
     url='http://github.com/paulgirard/pygexf',
     author='Paul Girard',
     author_email='paul.girard@sciences-po.fr',
-    license=None,
+    license='GPL v3',
     install_requires=[
         'lxml',
     ],

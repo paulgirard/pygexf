@@ -13,6 +13,7 @@ setup(
     install_requires=[
         'lxml',
     ],
+    test_suite="tests",
     classifiers=[
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',

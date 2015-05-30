@@ -29,7 +29,7 @@ def msg_unexpected_tag(expected, got):
 def ns_clean(token):
     index = token.find('}')
     index += 1
-    tag = token[token:]
+    tag = token[index:]
     return tag
 
 

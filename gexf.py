@@ -8,7 +8,7 @@
 #
 #     main developper : Paul Girard, médialab Sciences Po
 #     licence : GPL v3
-#
+#_
 import traceback
 from datetime import date
 from itertools import groupby

@@ -13,9 +13,11 @@ import traceback
 from datetime import date
 from itertools import groupby
 
+from lxml.etree import parse
 from lxml.etree import Element
+from lxml.etree import tostring
+from lxml.etree import XMLParser
 from lxml.etree import SubElement
-
 
 
 def msg_unexpected_tag(expected, got):
@@ -49,7 +51,7 @@ class Gexf:
         return g
 
     def getXML(self):
-        gexfXML = etree.Element(
+        gexfXML = Element(
             "{" + self.xmlns + "}gexf",
             version=self.version,
             nsmap={
@@ -58,17 +60,17 @@ class Gexf:
         )
 #         gexfXML.set("xmlnsxsi",)
         gexfXML.set("{xsi}schemaLocation", self.schemaLocation)
-        meta = etree.SubElement(gexfXML, "meta")
+        meta = SubElement(gexfXML, "meta")
         meta.set("lastmodified", date.today().isoformat())
-        etree.SubElement(meta, "creator").text = self.creator
-        etree.SubElement(meta, "description").text = self.description
+        SubElement(meta, "creator").text = self.creator
+        SubElement(meta, "description").text = self.description
         for graph in self.graphs:
             gexfXML.append(graph.getXML())
 
         return gexfXML
 
     def write(self, file, print_stat=True):
-        xml = etree.tostring(
+        xml = tostring(
             self.getXML(),
             pretty_print=True,
             encoding='utf-8',
@@ -86,8 +88,8 @@ class Gexf:
         """import gexf xml meta tags to create a Gexf Object
         and delegate Graph extraction to Graph class"""
         # parse the gexf file
-        parser = etree.XMLParser(ns_clean=True)
-        tree = etree.parse((gexf_file), parser)
+        parser = XMLParser(ns_clean=True)
+        tree = parse((gexf_file), parser)
         # start create Gexf Object
         gexf_xml = tree.getroot()
         tag = ns_clean(gexf_xml.tag).lower()
@@ -214,7 +216,7 @@ class Graph:
 
     def getXML(self):
         # return lxml etree element
-        graphXML = etree.Element(
+        graphXML = Element(
             "graph",
             defaultedgetype=self.type,
             mode=self.mode,
@@ -225,13 +227,13 @@ class Graph:
         for attributesElement in self.attributes.getAttributesDeclarationXML():
             graphXML.append(attributesElement)
 
-        nodesXML = etree.SubElement(graphXML, "nodes")
+        nodesXML = SubElement(graphXML, "nodes")
         node_ids = self._nodes.keys()
         node_ids.sort()
         for id in node_ids:
             nodesXML.append(self._nodes[id].getXML())
 
-        edgesXML = etree.SubElement(graphXML, "edges")
+        edgesXML = SubElement(graphXML, "edges")
         edge_ids = self._edges.keys()
         edge_ids.sort()
         for id in edge_ids:
@@ -704,7 +706,7 @@ class Edge:
 
             # spells
             if self.spells:
-                #spellsXML = SubElement(edgeXML, "spells")
+                # spellsXML = SubElement(edgeXML, "spells")
                 # spellsXML.append(self.spells.getXML())
                 edgeXML.append(self.spells.getXML())
 
@@ -822,7 +824,7 @@ class GexfImport:
 
     def __init__(self, file_like):
         parser = XMLParser(ns_clean=True)
-        tree = parse_xml(file_like, parser)
+        tree = parse(file_like, parser)
         gexf_xml = tree.getroot()
         tag = self.ns_clean(gexf_xml.tag).lower()
         if tag <> "gexf":

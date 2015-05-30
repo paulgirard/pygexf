@@ -58,7 +58,7 @@ class TestGexf(TestCase):
         with open(original) as f:
             gexf = Gexf.importXML(f)
 
-        export = "./gexf.net.dynamics_openintervals-export.gexf"
+        export = self.filepath("./gexf.net.dynamics_openintervals-export.gexf")
         with open(export, "w") as f:
             gexf.write(f)
 
@@ -67,5 +67,4 @@ class TestGexf(TestCase):
             export,
             shallow=False
         ))
-
-        os.remove('gexf.net.dynamics_openintervals-export.gexf')
+        os.remove(export)

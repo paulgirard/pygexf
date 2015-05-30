@@ -1,0 +1,12 @@
+TODO
+####
+
+Missing features:
+
+- data validation regarding attribute types
+- phylogeny
+
+Evolution ideas:
+
+- add display stats on graph composition when exportingto xml
+- add anti-paralell edges test

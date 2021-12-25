@@ -38,12 +38,12 @@ If no errors are raised then you're done.
 embed pygexf in your project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is a quick and durty method. Use easy_install instead.
+This is a quick and dirty method. Use easy_install instead.
 (but still sometime usefull)
 
 pygexf is a single file package.
-You can decide not to install it in your python environement but directly in your source where you need it.
-In such case go directly to the soruce repository :
+You can decide not to install it in your python environment but directly in your source where you need it.
+In such case go directly to the source repository :
 http://github.com/paulgirard/pygexf
 
 Download the gexf directory to your source.

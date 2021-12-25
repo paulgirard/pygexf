@@ -7,7 +7,7 @@
 #     repository : http://github.com/paulgirard/pygexf
 #     documentation : http://packages.python.org/pygexf
 #
-#     main developper : Paul Girard, médialab Sciences Po
+#     main developer : Paul Girard, médialab Sciences Po
 #     licence : GPL v3
 #
 
@@ -23,7 +23,7 @@ import traceback
 
  # evolution ideas :
  # add display stats on graph composition when exportingto xml
- # add anti-paralell edges test
+ # add anti-parallel edges test
 
 def msg_unexpected_tag(expected, got):
     print("Error : incorrect xml. Expected tag {expected}, not {got}.".format(expected=expected, got=got))
@@ -485,7 +485,7 @@ class Node:
 
         self._attributes = []
         self.attributes = self._attributes
-        # add existing nodesattributes default values : bad idea and unecessary
+        # add existing nodesattributes default values : bad idea and unnecessary
         #self._graph.addDefaultAttributesToNode(self)
 
     def addAttribute(self, id, value, start="", end="", startopen=False, endopen=False):
@@ -631,7 +631,7 @@ class Edge:
 
         #spells expecting format = [{start:"",end:""},...]
         self.spells = Spells(spells)
-        # add existing nodesattributes default values : bad idea and unecessary
+        # add existing nodesattributes default values : bad idea and unnecessary
         #self._graph.addDefaultAttributesToEdge(self)
 
     def addAttribute(self, id, value, start="", end="", startopen=False, endopen=False):
